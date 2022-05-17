@@ -9,7 +9,7 @@ def clrprint(*args, **kwargs):
 
 
 class PyColorConfig:
-    def __init__(self, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT):
+    def __init__(self, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT, **kwargs):
         self.mode = mode
         if foreground == Fore.DEFAULT:
             self.foreground = ''
@@ -20,8 +20,8 @@ class PyColorConfig:
         else:
             self.background = ';' + str(background)
 
-    def __call__(self, output: str):
-        print(_PyColorPrint(output, self.mode, self.foreground, self.background))
+    def __call__(self, output: str, **kwargs):
+        print(_PyColorPrint(output, self.mode, self.foreground, self.background), **kwargs)
 
 
 class _PyColorPrint:

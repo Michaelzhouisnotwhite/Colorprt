@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="PyColorPrint",
-    version="0.0.1",
+    name="pycolorprint",
+    version="0.0.2",
     author="Michael",
     author_email="zyqing601@163.com",
     description="Print color output",

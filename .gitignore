@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
+### Project
+*/*test.*s
+
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -153,6 +157,7 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
 
 # Cython debug symbols
 cython_debug/
