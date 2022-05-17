@@ -27,7 +27,7 @@ pycolor_config = ColorprtConfig(mode=Mode.BOLD, background=Back.DEFAULT, foregro
 pycolor_config("I love You!!", end="")
 ```
 
-If you just want the ansi colored formatted strings, you can use `clrstr` class.
+If you just want the ansi colored formatted strings, you can use `colorstr` class.
 
 ```python
 from colorprt import colorstr, Mode, Back, Fore, ColorprtConfig
