@@ -37,4 +37,13 @@ print(colorstr("I love You!!", mode=Mode.BOLD, background=Back.DEFAULT, foregrou
       + colorstr("I hate you", config=hate_print_config))
 ```
 
+If you just want the strings with ANSI formatted. You can use like this:
+
+```python
+from colorprt import colorstr, Mode, Back, Fore, ColorprtConfig
+hate_print_config = ColorprtConfig(mode=Mode.UNDER_LINE, background=Back.DEFAULT, foreground=Fore.YELLOW)
+
+output = str(colorstr('I hate You', config=hate_print_config))
+```
+
 
