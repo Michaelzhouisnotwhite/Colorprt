@@ -4,11 +4,11 @@ SC = '\033['
 EC = '\033[0m'
 
 
-def clrprint(*args, **kwargs):
-    print(_PyColorPrint(*args, **kwargs))
+def colorprt(*args, **kwargs):
+    print(_Colorprt(*args, **kwargs))
 
 
-class PyColorConfig:
+class ColorprtConfig:
     def __init__(self, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT, **kwargs):
         self.mode = mode
         if foreground == Fore.DEFAULT:
@@ -21,12 +21,12 @@ class PyColorConfig:
             self.background = ';' + str(background)
 
     def __call__(self, output: str, **kwargs):
-        print(_PyColorPrint(output, self.mode, self.foreground, self.background), **kwargs)
+        print(_Colorprt(output, self.mode, self.foreground, self.background), **kwargs)
 
 
-class _PyColorPrint:
+class _Colorprt:
     def __init__(self, output: str, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT,
-                 config: PyColorConfig = None):
+                 config: ColorprtConfig = None):
         if config is not None:
             self.foreground = config.foreground
             self.background = config.background
@@ -50,4 +50,4 @@ class _PyColorPrint:
         return f'{SC}{self.mode}{self.foreground}{self.background}m{self.output}{EC}'
 
     def __add__(self, other):
-        return _PyColorPrint(str(self) + str(other))
+        return _Colorprt(str(self) + str(other))
