@@ -21,27 +21,28 @@ class ColorprtConfig:
             self.background = ';' + str(background)
 
     def __call__(self, output: str, **kwargs):
-        print(_Colorprt(output, self.mode, self.foreground, self.background), **kwargs)
+        print(_Colorprt(output, config=self), **kwargs)
 
 
 class _Colorprt:
     def __init__(self, output: str, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT,
                  config: ColorprtConfig = None):
+        self.output = output
+
         if config is not None:
             self.foreground = config.foreground
             self.background = config.background
             self.mode = config.mode
-
-        self.output = output
-        self.mode = mode
-        if foreground == Fore.DEFAULT:
-            self.foreground = ''
         else:
-            self.foreground = ';' + str(foreground)
-        if background == Back.DEFAULT:
-            self.background = ''
-        else:
-            self.background = ';' + str(background)
+            self.mode = mode
+            if foreground == Fore.DEFAULT:
+                self.foreground = ''
+            else:
+                self.foreground = ';' + str(foreground)
+            if background == Back.DEFAULT:
+                self.background = ''
+            else:
+                self.background = ';' + str(background)
 
     def __str__(self):
         return f'{SC}{self.mode}{self.foreground}{self.background}m{self.output}{EC}'

@@ -2,6 +2,8 @@
 
 It's a simple package for you to customize the printing color.
 
+pypi: https://pypi.org/project/colorprt/
+
 ## Usage
 
 ```bash
@@ -28,11 +30,11 @@ pycolor_config("I love You!!", end="")
 If you just want the ansi colored formatted strings, you can use `clrstr` class.
 
 ```python
-from colorprt import clrstr, Mode, Back, Fore, ColorprtConfig
+from colorprt import colorstr, Mode, Back, Fore, ColorprtConfig
 
 hate_print_config = ColorprtConfig(mode=Mode.UNDER_LINE, background=Back.DEFAULT, foreground=Fore.YELLOW)
-print(clrstr("I love You!!", mode=Mode.BOLD, background=Back.DEFAULT, foreground=Fore.RED)
-      + clrstr("I hate you", hate_print_config))
+print(colorstr("I love You!!", mode=Mode.BOLD, background=Back.DEFAULT, foreground=Fore.RED)
+      + colorstr("I hate you", config=hate_print_config))
 ```
 
 
