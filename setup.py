@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="colorprt",
-    version="1.0.4",
+    version="2.0.0",
     author="MichaelZhou",
     author_email="zyqing601@163.com",
     description="It's a simple package for you to customize the printing color.",
