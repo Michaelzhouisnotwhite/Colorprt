@@ -2,9 +2,19 @@
 
 It's a simple package for you to customize the printing color.
 
-pypi: https://pypi.org/project/colorprt/
+pypi: <https://pypi.org/project/colorprt/>
 
 ## New Features
+
+We add some default default color config in out package.
+
+```python
+from colorprt.default import warn, success, error
+
+warn("Print a warn message")
+success("Print a success message")
+error("Print an error message")
+```
 
 We found that some people use this package on linux server, so that there is no auto completions. It will trouble users.
 Therefore, we add a feature that
