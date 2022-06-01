@@ -9,5 +9,3 @@ pycolor_config("I love You!!", end="\n\n")
 
 pycolor_config = ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD)
 pycolor_config("I hate You!!", end="")
-pass
-
