@@ -1,14 +1,15 @@
-from colorprt import colorstr, ColorprtConfig, Fore, Mode, Back
+from colorprt import colorstr, ColorprtConfig, Fore, Mode, Back, colorprt
+from colorprt.default import warn_color, success_color, error_color
 
 pycolor_config = ColorprtConfig(Back.RED, Fore.DEFAULT)
-pycolor_config.print("I love You!!", end="\n\n")
+pycolor_config.print("I love You!!", "I love China as well", end="\n\n")
 
 lang_output_config = ColorprtConfig(Fore.BLUE, Back.YELLOW)
 a = colorstr('asdfasdf', lang_output_config)
 print(a)
 
 pycolor_config = ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD)
-pycolor_config.print("I hate You!!", end="")
+pycolor_config.print("I hate You!!", a, end="")
 
 b = colorstr("this is a hate string", pycolor_config, Back.YELLOW)
 c = colorstr("this is anothor hate string", pycolor_config, Fore.CYAN, Back.RED, Mode.BOLD)
@@ -16,5 +17,15 @@ c = colorstr("this is anothor hate string", pycolor_config, Fore.CYAN, Back.RED,
 print(c + " " + b)
 print(f"format string test: {b + c}")
 
-### test exception
-ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD, 123)
+# test exception
+
+try:
+    ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD, "invaild arg")
+
+except TypeError as e:
+    error_color.print(e, end="\n\n")
+    warn_color.print(e)
+    print(success_color(e))
+
+colorprt("dafj", "eaifjaejf", b, f"{c}", end=" ####\n")
+

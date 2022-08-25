@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import Any, List, Tuple, Union
 from ._vars import *
 
 SC = '\033['
@@ -6,7 +6,23 @@ EC = '\033[0m'
 
 
 def colorprt(*args, **kwargs):
-    print(_Colorprt(*args), **kwargs)
+    """
+    It's a printing function
+    
+    Usage:
+        from colorprt import colorprt, Back, Fore
+
+        colorprt("Hello World", Back.RED)
+    """
+    config_list = []
+    output_string = []
+    for arg in list(args):
+        if isinstance(arg, (Fore, Back, Mode)):
+            config_list.append(arg)
+
+        else:
+            output_string.append(arg)
+    ColorprtConfig(*config_list).print(*output_string, **kwargs)
 
 
 class _ColorStr:
@@ -17,9 +33,11 @@ class _ColorStr:
         self.start = s
         self.end = e
 
-    def combine(self, output: str):
-        output = str(output)
-        return self.start + output + self.end
+    def combine(self, *output: Any):
+        res_string = self.start + f"{list(output)[0]}"
+        for arg in list(output)[1:]:
+            res_string += f" {arg}"
+        return res_string + self.end
 
 
 class ColorPtrBase:
@@ -56,8 +74,8 @@ class ColorprtConfig(ColorPtrBase):
         self.arg_list = args
         super().__init__(*args)
 
-    def print(self, output_string: str, **kwargs):
-        print(self.preprocess_color_prefix().combine(output_string), **kwargs)
+    def print(self, *outputs: Any, **kwargs):
+        print(self.preprocess_color_prefix().combine(*outputs), **kwargs)
 
     def copy(self):
         return ColorprtConfig(*self.arg_list)
@@ -66,9 +84,12 @@ class ColorprtConfig(ColorPtrBase):
     def config_list(self):
         return [self.background, self.foreground, self.mode]
 
+    def __call__(self, *plain_string: Any) -> str:
+        return self.preprocess_color_prefix().combine(*plain_string)
 
-class _Colorprt(ColorPtrBase): 
-    def __init__(self, plain_string: str, *args: Union[List[Union[Mode, Back, Fore]], List[ColorprtConfig]]):
+
+class _Colorprt(ColorPtrBase):
+    def __init__(self, plain_string: str, *args: Union[Union[Mode, Back, Fore], ColorprtConfig]):
         self.output = plain_string
         self.color_config = None
         for parm in list(args):
@@ -93,5 +114,5 @@ class _Colorprt(ColorPtrBase):
     def str(self):
         return self.preprocess_color_prefix().combine(self.output)
 
-    def __add__(self, other):
+    def __add__(self, other: Any):
         return _Colorprt(str(self) + str(other))
