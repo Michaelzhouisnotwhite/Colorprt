@@ -1,5 +1,5 @@
 from . import Fore, ColorprtConfig
 
-warn = ColorprtConfig(foreground=Fore.YELLOW)
-success = ColorprtConfig(foreground=Fore.GREEN)
-error = ColorprtConfig(foreground=Fore.RED)
+warn = ColorprtConfig(Fore.YELLOW)
+success = ColorprtConfig(Fore.GREEN)
+error = ColorprtConfig(Fore.RED)

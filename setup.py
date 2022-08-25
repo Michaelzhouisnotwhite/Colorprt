@@ -6,10 +6,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="colorprt",
-    version="2.0.1",
+    version="3.0.0",
     author="MichaelZhou",
     author_email="zyqing601@163.com",
-    description="It's a simple package for you to customize the printing color.",
+    description="It's a simple tools to print colorfully. Easy to use",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Michaelzhouisnotwhite/Colorprt",

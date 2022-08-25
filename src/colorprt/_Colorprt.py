@@ -1,3 +1,4 @@
+from typing import List, Union
 from ._vars import *
 
 SC = '\033['
@@ -5,10 +6,10 @@ EC = '\033[0m'
 
 
 def colorprt(*args, **kwargs):
-    print(_Colorprt(*args, **kwargs))
+    print(_Colorprt(*args), **kwargs)
 
 
-class Str:
+class _ColorStr:
     start = SC
     end = EC
 
@@ -21,56 +22,76 @@ class Str:
         return self.start + output + self.end
 
 
-class Base:
-    def __init__(self, *args, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT, **kwargs):
-        self.mode = mode
-        self.foreground = foreground
-        self.background = background
+class ColorPtrBase:
+    def __init__(self, *args):
+        self.mode: Mode = Mode.DEFAULT
+        self.foreground: Fore = Fore.DEFAULT
+        self.background: Back = Back.DEFAULT
         if args:
             for arg in list(args):
-                if arg in Fore.range():
+                if isinstance(arg, Fore):
                     self.foreground = arg
-                elif arg in Back.range():
+                elif isinstance(arg, Back):
                     self.background = arg
-                elif arg in Mode.range():
+                elif isinstance(arg, Mode):
                     self.mode = arg
 
-    def preprocess_color_str(self):
+                else:
+                    raise TypeError(f"{arg} is an invalid arguments.")
+
+    def preprocess_color_prefix(self):
         if self.foreground == Fore.DEFAULT:
             foreground = ''
         else:
-            foreground = ';' + str(self.foreground)
+            foreground = ';' + str(self.foreground.value)
         if self.background == Back.DEFAULT:
             background = ''
         else:
-            background = ';' + str(self.background)
-        return Str(s=f'{SC}{self.mode}{foreground}{background}m')
+            background = ';' + str(self.background.value)
+        return _ColorStr(s=f'{SC}{self.mode.value}{foreground}{background}m')
 
 
-class ColorprtConfig(Base):
-    def __init__(self, *args, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT, **kwargs):
-        super().__init__(*args, mode=mode, foreground=foreground, background=background, **kwargs)
+class ColorprtConfig(ColorPtrBase):
+    def __init__(self, *args):
+        self.arg_list = args
+        super().__init__(*args)
 
-    def __call__(self, output: str, **kwargs):
-        print(self.preprocess_color_str().combine(output), **kwargs)
+    def print(self, output_string: str, **kwargs):
+        print(self.preprocess_color_prefix().combine(output_string), **kwargs)
+
+    def copy(self):
+        return ColorprtConfig(*self.arg_list)
+
+    @property
+    def config_list(self):
+        return [self.background, self.foreground, self.mode]
 
 
-class _Colorprt(Base):
-    def __init__(self, output: str, *args, mode=Mode.DEFAULT, foreground=Fore.DEFAULT, background=Back.DEFAULT,
-                 config: ColorprtConfig = None):
-        if config is not None:
-            super(_Colorprt, self).__init__(*args, mode=config.mode, foreground=config.foreground,
-                                            background=config.background)
+class _Colorprt(ColorPtrBase): 
+    def __init__(self, plain_string: str, *args: Union[List[Union[Mode, Back, Fore]], List[ColorprtConfig]]):
+        self.output = plain_string
+        self.color_config = None
+        for parm in list(args):
+            if isinstance(parm, ColorprtConfig):
+                self.color_config = parm.copy()
+                super().__init__(*self.color_config.config_list)
+                break
+        if self.color_config is None:
+            super().__init__(*args)
         else:
-            super().__init__(*args, mode=mode, foreground=foreground, background=background)
-
-        self.output = output
+            for parm in list(args):
+                if isinstance(parm, Mode):
+                    self.mode = parm
+                if isinstance(parm, Back):
+                    self.background = parm
+                if isinstance(parm, Fore):
+                    self.foreground = parm
 
     def __str__(self):
-        return self.preprocess_color_str().combine(self.output)
+        return self.preprocess_color_prefix().combine(self.output)
 
     def str(self):
-        return self.preprocess_color_str().combine(self.output)
+        return self.preprocess_color_prefix().combine(self.output)
 
     def __add__(self, other):
         return _Colorprt(str(self) + str(other))
