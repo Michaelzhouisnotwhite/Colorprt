@@ -6,7 +6,7 @@ pypi: <https://pypi.org/project/colorprt/>
 
 ## ScreenShots
 
-<img alt="img.png" src=".github/img.png"/>
+<img alt="img.png" src=".github/img.png" width="1120"/>
 
 ## New Features
 
@@ -31,6 +31,7 @@ In old versions:
 ```python
 from colorprt import colorprt, Back, Fore
 
+# CAUTION: Do not use this after version: 3.0.0
 colorprt("Hello World", backgound=Back.RED)
 ```
 
@@ -39,7 +40,7 @@ Use new features:
 ```python
 from colorprt import colorprt, Back, Fore
 
-colorprt("Hello World", Back.RED)
+colorprt("Hello World", Back.RED, Fore.YELLOW)
 ```
 
 ## Usage
@@ -62,7 +63,7 @@ colorprt("Hello World", Back.RED)
 - Fore stands for foreground;
 - Mode stands for printing mode. ( font style like: underline, bold, flash, reverse )
 
-Also, you can use a config class to set colored strings.
+Also, you can use `ColorprtConfig` class to set colored strings.
 
 ```python
 from colorprt import ColorprtConfig, Mode, Back, Fore
