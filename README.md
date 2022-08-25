@@ -51,6 +51,12 @@ colorprt("Hello World", Back.RED, Fore.YELLOW)
 pip install colorprt
 ```
 
+```bash
+python test/test.py
+```
+
+### Detailed Documentation
+
 function colorprt will automatically call output function: `print`
 
 ```python
