@@ -6,7 +6,7 @@ pypi: <https://pypi.org/project/colorprt/>
 
 ## ScreenShots
 
-<img alt="img.png" src=".github/img.png" width="1120"/>
+<img alt="img.png" src=".github/img.png" style="width: 760px;text-align: center"/>
 
 ## New Features
 
