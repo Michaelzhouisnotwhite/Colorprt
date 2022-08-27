@@ -1,6 +1,6 @@
 # Colorprt
 
-It's a simple package for you to customize the printing color.
+It's a simple package for you to customize the console printing color.
 
 pypi: <https://pypi.org/project/colorprt/>
 
@@ -10,7 +10,7 @@ pypi: <https://pypi.org/project/colorprt/>
 
 ## New Features
 
-We add some default color config in out package.
+We add some default color config in our package.
 
 ```python
 from colorprt.default import warn_color, success_color, error_color
@@ -45,25 +45,23 @@ colorprt("Hello World", Back.RED, Fore.YELLOW)
 
 ## Usage
 
-### Get Started
+### Installation
 
 ```bash
 pip install colorprt
 ```
 
-```bash
-python test/test.py
-```
-
 ### Detailed Documentation
 
-function colorprt will automatically call output function: `print`
+Function `colorprt` is a `print` funtion extention. You can customize the printing style.
 
 ```python
 from colorprt import colorprt, Back, Fore
 
-colorprt("Hello World", Back.RED)
+hello_else = "Hello Michael"
+colorprt("Hello World",hello_else,  Back.RED, Fore.BLUE end="x100 times\n")
 ```
+![scshots01](.github/scshots01.png)
 
 - Back stands for background;
 - Fore stands for foreground;
