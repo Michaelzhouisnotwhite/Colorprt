@@ -8,7 +8,7 @@ EC = '\033[0m'
 def colorprt(*args, **kwargs):
     """
     It's a printing function
-    
+
     Usage:
         from colorprt import colorprt, Back, Fore
 
