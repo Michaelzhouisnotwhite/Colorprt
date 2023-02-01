@@ -27,5 +27,5 @@ except TypeError as e:
     warn_color.print(e)
     print(success_color(e))
 
-colorprt("dafj", "eaifjaejf", b, f"{c}", end=" ####\n")
+colorprt("string1", "string2", b, f"{c}", end=" ####\n")
 
