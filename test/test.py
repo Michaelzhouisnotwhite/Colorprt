@@ -28,4 +28,3 @@ except TypeError as e:
     print(success_color(e))
 
 colorprt("string1", "string2", b, f"{c}", end=" ####\n")
-
