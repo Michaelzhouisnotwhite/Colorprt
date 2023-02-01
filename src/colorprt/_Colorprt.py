@@ -34,10 +34,10 @@ class _ColorStr:
         self.end = e
 
     def combine(self, *output: Any):
-        res_string = self.start + f"{list(output)[0]}"
+        res_string = f"{list(output)[0]}"
         for arg in list(output)[1:]:
             res_string += f" {arg}"
-        return res_string + self.end
+        return f"{self.start}{res_string}{self.end}"
 
 
 class ColorPtrBase:
@@ -92,21 +92,21 @@ class _Colorprt(ColorPtrBase):
     def __init__(self, plain_string: str, *args: Union[Union[Mode, Back, Fore], ColorprtConfig]):
         self.output = plain_string
         self.color_config = None
-        for parm in list(args):
-            if isinstance(parm, ColorprtConfig):
-                self.color_config = parm.copy()
+        for param in list(args):
+            if isinstance(param, ColorprtConfig):
+                self.color_config = param.copy()
                 super().__init__(*self.color_config.config_list)
                 break
         if self.color_config is None:
             super().__init__(*args)
         else:
-            for parm in list(args):
-                if isinstance(parm, Mode):
-                    self.mode = parm
-                if isinstance(parm, Back):
-                    self.background = parm
-                if isinstance(parm, Fore):
-                    self.foreground = parm
+            for param in list(args):
+                if isinstance(param, Mode):
+                    self.mode = param
+                if isinstance(param, Back):
+                    self.background = param
+                if isinstance(param, Fore):
+                    self.foreground = param
 
     def __str__(self):
         return self.preprocess_color_prefix().combine(self.output)

@@ -12,7 +12,7 @@ pycolor_config = ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD)
 pycolor_config.print("I hate You!!", a, end="")
 
 b = colorstr("this is a hate string", pycolor_config, Back.YELLOW)
-c = colorstr("this is anothor hate string", pycolor_config, Fore.CYAN, Back.RED, Mode.BOLD)
+c = colorstr("this is another hate string", pycolor_config, Fore.CYAN, Back.RED, Mode.BOLD)
 
 print(c + " " + b)
 print(f"format string test: {b + c}")
@@ -20,7 +20,7 @@ print(f"format string test: {b + c}")
 # test exception
 
 try:
-    ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD, "invaild arg")
+    ColorprtConfig(Back.DEFAULT, Fore.RED, Mode.BOLD, "invalid arg")
 
 except TypeError as e:
     error_color.print(e, end="\n\n")
