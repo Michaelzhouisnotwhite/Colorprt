@@ -1,5 +1,5 @@
 install:
-	python -m setup.py install
+	pip install -e .
 
 b:
 	python -m build
