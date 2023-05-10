@@ -1,5 +1,6 @@
 from typing import Any, List, Tuple, Union
 from ._vars import *
+__all__ = ["colorprt", "SC", "EC", "ColorprtConfig"]
 
 SC = '\033['
 EC = '\033[0m'
@@ -40,7 +41,7 @@ class _ColorStr:
         return f"{self.start}{res_string}{self.end}"
 
 
-class ColorPtrBase:
+class ColorPrtBase:
     def __init__(self, *args):
         self.mode: Mode = Mode.DEFAULT
         self.foreground: Fore = Fore.DEFAULT
@@ -69,7 +70,7 @@ class ColorPtrBase:
         return _ColorStr(s=f'{SC}{self.mode.value}{foreground}{background}m')
 
 
-class ColorprtConfig(ColorPtrBase):
+class ColorprtConfig(ColorPrtBase):
     def __init__(self, *args):
         self.arg_list = args
         super().__init__(*args)
@@ -88,7 +89,7 @@ class ColorprtConfig(ColorPtrBase):
         return self.preprocess_color_prefix().combine(*plain_string)
 
 
-class _Colorprt(ColorPtrBase):
+class _Colorprt(ColorPrtBase):
     def __init__(self, plain_string: str, *args: Union[Union[Mode, Back, Fore], ColorprtConfig]):
         self.output = plain_string
         self.color_config = None
